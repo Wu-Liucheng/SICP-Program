@@ -1,0 +1,15 @@
+#lang racket
+#|迭代的乘法|#
+(define (double x)
+  (+ x x))
+(define (halve n)
+  (/ n 2))
+(define (even? n)
+  (= (remainder n 2) 0))
+(define (fast-mul-iteration a b)
+  (fast-mul-iteration-iter 0 a b))
+(define (fast-mul-iteration-iter product element counter)
+  (cond ((= 0 counter) product)
+        ((even? counter) (fast-mul-iteration-iter (+ product (double element)) (double element) (- (halve counter) 1)))
+        (else (fast-mul-iteration-iter (+ product element) element (- counter 1)))))
+(fast-mul-iteration 2234 234588785982003269848)

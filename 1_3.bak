@@ -1,0 +1,5 @@
+#lang racket
+(define (max x y)
+  (if(> x y) x
+  y))
+(max 3 2)

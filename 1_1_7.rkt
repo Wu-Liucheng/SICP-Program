@@ -1,0 +1,31 @@
+#lang racket
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+#|改进猜测的方式就是求出它与被开放数|#
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+#|求平均值|#
+(define (average x y)
+  (/ (+ x y) 2))
+
+#|不断的逼近，这里的误差是0.001|#
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (square x)
+  (* x x))
+
+(define (abs x)
+  (cond ((> x 0) x)
+        ((= x 0) 0)
+        ((< x 0) (* -1 x))))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+(sqrt 10)

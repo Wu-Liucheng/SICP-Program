@@ -1,0 +1,10 @@
+#lang racket
+(for-each (lambda (x) (newline) (display x))
+          (list 57 321 88))
+(define (my-for-each proc items)
+  (cond ((not (null? items))
+         (proc (car items))))
+  (cond ((not (null? items))
+         (my-for-each proc (cdr items)))))
+(my-for-each (lambda (x) (newline) (display (* x x)))
+             (list 1 2 3 4 5))

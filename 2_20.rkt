@@ -1,0 +1,32 @@
+#lang racket
+(define (reverse-2 items)
+  (define (iter items result)
+    (if (null? items)
+        result
+        (iter (cdr items) (cons (car items) result))))
+  (iter items null))
+(define (same-parity x . y)
+  (define (iter y result)
+    (if (null? y)
+        result
+        (if (= (remainder (car y) 2) (remainder x 2))
+            (iter (cdr y) (cons (car y) result))
+            (iter (cdr y) result))))
+  (cons x (reverse-2 (iter y null))))
+(same-parity 1 2 3 4 5 6 7)
+(same-parity 2 3 4 5 6 7)
+(define (scale-list items factor)
+  (if (null? items)
+      null
+      (cons (* (car items) factor)
+            (scale-list (cdr items) factor))))
+(scale-list (list 1 2 3 4 5 ) 10)
+(define (same-parity-0 x . y)
+  (define (iter y)
+    (if (null? y)
+        null
+        (if (= (remainder (car y) 2) (remainder x 2))
+            (cons (car y) (iter (cdr y)))
+            (cons null (iter (cdr y))))))
+  (cons x (iter y)))
+(same-parity-0 1 2 3 4 5 6 7)

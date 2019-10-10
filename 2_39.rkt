@@ -1,0 +1,23 @@
+#lang racket
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+(define (fold-left op initial sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+  (iter initial sequence))
+(accumulate - 0 (list 1 2 3 4 5))
+(fold-left - 0 (list 1 2 3 4 5))
+(accumulate list null (list 1 2 3))
+(fold-left list null (list 1 2 3))
+(define (reverse-r sequence)
+  (accumulate (lambda (x y) (append y (list x))) null sequence))
+(define (reverse-l sequence)
+  (fold-left (lambda (x y) (cons y x)) null sequence))
+(reverse-r (list 1 2 3 4 5))
+(reverse-l (list 1 2 3 4 5))
